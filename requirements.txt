@@ -1,0 +1,29 @@
+# ============================================================
+# LangChain DeepAgent — Requirements
+# Python >= 3.10
+# Docs: https://docs.langchain.com/oss/python/deepagents/overview
+# ============================================================
+
+# --- Core ---
+deepagents                  # Main DeepAgents framework (PyPI: deepagents)
+langchain                   # Core building blocks: chat models, tools, middleware
+langgraph                   # Runtime: durable execution, streaming, HITL, checkpointing
+langsmith                   # Observability: tracing, debugging, evaluation
+
+# --- Model Providers (install at least one) ---
+langchain-anthropic          # Claude (claude-sonnet-4-6, claude-opus-*, etc.)
+langchain-openai             # OpenAI / Azure OpenAI (gpt-4o, gpt-5, etc.)
+langchain-google-genai       # Google Gemini (gemini-2.5-flash, etc.)
+# langchain-openrouter       # OpenRouter — uncomment if using OpenRouter
+# langchain-fireworks        # Fireworks AI — uncomment if using Fireworks
+# langchain-baseten          # Baseten — uncomment if using Baseten
+# langchain-ollama           # Ollama (local models) — uncomment if using Ollama
+
+# --- Tools ---
+tavily-python               # Tavily web search tool (requires TAVILY_API_KEY)
+
+# --- Structured Output & Validation ---
+pydantic>=2.0               # Structured output / response_format schemas
+
+# --- Utilities ---
+python-dotenv               # Load API keys from a .env file
