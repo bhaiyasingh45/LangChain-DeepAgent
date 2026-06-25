@@ -5,11 +5,24 @@ from ..config import settings
 
 router = APIRouter(prefix="/api/files", tags=["files"])
 
-IGNORED = {".git", ".venv", "__pycache__", "node_modules", ".next", "dist", "build", ".DS_Store"}
+IGNORED = {
+    ".git", ".venv", "__pycache__", "node_modules", ".next", "dist", "build",
+    ".DS_Store", ".claude", "data", ".env", ".python-version",
+}
+
+
+def _should_ignore(name: str) -> bool:
+    if name in IGNORED:
+        return True
+    if name.startswith("~$"):          # Word/Excel temp files
+        return True
+    if name.endswith((".docx", ".xlsx", ".pptx", ".pyc", ".pyo")):
+        return True
+    return False
 
 
 def build_tree(path: Path, depth: int = 0, max_depth: int = 4) -> dict:
-    if depth > max_depth or path.name in IGNORED:
+    if depth > max_depth or _should_ignore(path.name):
         return {}
     node = {
         "name": path.name,
@@ -21,7 +34,7 @@ def build_tree(path: Path, depth: int = 0, max_depth: int = 4) -> dict:
         try:
             children = sorted(path.iterdir(), key=lambda p: (not p.is_dir(), p.name.lower()))
             for child in children:
-                if child.name not in IGNORED:
+                if not _should_ignore(child.name):
                     child_node = build_tree(child, depth + 1, max_depth)
                     if child_node:
                         node["children"].append(child_node)
