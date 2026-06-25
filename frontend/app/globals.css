@@ -60,3 +60,12 @@ body {
 .prose h1, .prose h2, .prose h3, .prose h4 { color: #e8e8e8; }
 .prose blockquote { border-left-color: #2a2a2a; color: #888888; }
 .prose hr { border-color: #2a2a2a; }
+
+@keyframes bounce {
+  from { transform: scaleY(0.4); opacity: 0.6; }
+  to   { transform: scaleY(1.6); opacity: 1; }
+}
+@keyframes voiceBounce {
+  from { transform: scaleY(0.5); }
+  to   { transform: scaleY(2.0); }
+}

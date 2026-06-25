@@ -1,0 +1,10 @@
+.env
+.venv
+.claude
+__pycache__/
+*.pyc
+*.pyo
+data/
+workspace/
+~$*
+

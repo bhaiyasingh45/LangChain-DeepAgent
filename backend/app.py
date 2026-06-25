@@ -5,6 +5,7 @@ from .config import settings
 from .routes.chat import router as chat_router
 from .routes.sessions import router as sessions_router
 from .routes.files import router as files_router
+from .routes.voice import router as voice_router
 
 app = FastAPI(
     title="ClaudeCode DeepAgent API",
@@ -23,6 +24,7 @@ app.add_middleware(
 app.include_router(chat_router)
 app.include_router(sessions_router)
 app.include_router(files_router)
+app.include_router(voice_router)
 
 
 @app.get("/health")
