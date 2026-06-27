@@ -117,14 +117,15 @@ def build_permission_data(interrupt_value: Any) -> dict:
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
-_SUBAGENT_NAMES = {"file-agent", "shell-agent", "web-agent", "code-agent"}
+_SUBAGENT_NAMES = {"file-agent", "shell-agent", "web-agent", "code-agent", "general-purpose"}
 
 # Must stay in sync with model assignments in agent_factory.py
 _AGENT_MODEL_LABEL: dict[str, str] = {
-    "file-agent":  "Haiku 4.5",
-    "shell-agent": "Haiku 4.5",
-    "web-agent":   "Haiku 4.5",
-    "code-agent":  "Sonnet 4.5",
+    "file-agent":      "Haiku 4.5",
+    "shell-agent":     "Haiku 4.5",
+    "web-agent":       "Haiku 4.5",
+    "code-agent":      "Sonnet 4.5",
+    "general-purpose": "Sonnet 4.5",
 }
 
 

@@ -2,10 +2,11 @@
 import { Block } from "@/store/chatStore";
 
 const AGENT_CONFIG: Record<string, { icon: string; color: string; bg: string; border: string }> = {
-  "file-agent":  { icon: "F", color: "text-cc-green",  bg: "rgba(74,222,128,0.08)",  border: "rgba(74,222,128,0.25)"  },
-  "shell-agent": { icon: "S", color: "text-cc-yellow", bg: "rgba(250,204,21,0.08)",  border: "rgba(250,204,21,0.25)"  },
-  "web-agent":   { icon: "W", color: "text-cc-blue",   bg: "rgba(96,165,250,0.08)",  border: "rgba(96,165,250,0.25)"  },
-  "code-agent":  { icon: "C", color: "text-cc-purple", bg: "rgba(192,132,252,0.08)", border: "rgba(192,132,252,0.25)" },
+  "file-agent":      { icon: "F", color: "text-cc-green",  bg: "rgba(74,222,128,0.08)",  border: "rgba(74,222,128,0.25)"  },
+  "shell-agent":     { icon: "S", color: "text-cc-yellow", bg: "rgba(250,204,21,0.08)",  border: "rgba(250,204,21,0.25)"  },
+  "web-agent":       { icon: "W", color: "text-cc-blue",   bg: "rgba(96,165,250,0.08)",  border: "rgba(96,165,250,0.25)"  },
+  "code-agent":      { icon: "C", color: "text-cc-purple", bg: "rgba(192,132,252,0.08)", border: "rgba(192,132,252,0.25)" },
+  "general-purpose": { icon: "G", color: "text-cc-amber",  bg: "rgba(212,168,83,0.08)",  border: "rgba(212,168,83,0.25)"  },
 };
 
 const DEFAULT_CFG = { icon: "A", color: "text-cc-amber", bg: "rgba(212,168,83,0.08)", border: "rgba(212,168,83,0.25)" };
