@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     # AWS Bedrock (primary)
     aws_default_region: str = "us-east-1"
     bedrock_model_id: str = "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+    bedrock_haiku_model_id: str = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
 
     # Azure OpenAI (fallback)
     azure_openai_api_key: str = ""

@@ -58,8 +58,10 @@ def parse_chunk(chunk: dict) -> tuple[str, dict] | None:
 
         for node_name, delta in data.items():
             if _is_subagent_node(node_name):
+                agent_name = _extract_agent_name(node_name)
                 return "agent_selection", {
-                    "agent": _extract_agent_name(node_name),
+                    "agent": agent_name,
+                    "model": _AGENT_MODEL_LABEL.get(agent_name, ""),
                     "reason": _extract_routing_reason(delta),
                 }
             tool_call = _extract_tool_call(delta)
@@ -117,6 +119,14 @@ def build_permission_data(interrupt_value: Any) -> dict:
 
 _SUBAGENT_NAMES = {"file-agent", "shell-agent", "web-agent", "code-agent"}
 
+# Must stay in sync with model assignments in agent_factory.py
+_AGENT_MODEL_LABEL: dict[str, str] = {
+    "file-agent":  "Haiku 4.5",
+    "shell-agent": "Haiku 4.5",
+    "web-agent":   "Haiku 4.5",
+    "code-agent":  "Sonnet 4.5",
+}
+
 
 def _is_subagent_node(node_name: str) -> bool:
     return any(name in node_name for name in _SUBAGENT_NAMES)
@@ -135,7 +145,9 @@ def _extract_routing_reason(delta: Any) -> str:
         if msgs:
             last = msgs[-1]
             content = getattr(last, "content", "") or (last.get("content", "") if isinstance(last, dict) else "")
-            return str(content)[:200]
+            if isinstance(content, list):
+                content = "".join(p.get("text", "") if isinstance(p, dict) else str(p) for p in content)
+            return str(content)[:300]
     return ""
 
 

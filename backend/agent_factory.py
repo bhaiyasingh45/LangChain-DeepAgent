@@ -48,6 +48,13 @@ async def _build_agent_async():
         model_kwargs={"temperature": 0, "max_tokens": 4096},
     )
 
+    # Haiku for file/shell/web — faster and cheaper; Sonnet stays for code reasoning
+    haiku_model = ChatBedrock(
+        model_id=settings.bedrock_haiku_model_id,
+        region_name=settings.aws_default_region,
+        model_kwargs={"temperature": 0, "max_tokens": 2048},
+    )
+
     backend = LocalShellBackend(
         root_dir=settings.workspace_dir,
         virtual_mode=True,
@@ -61,6 +68,12 @@ async def _build_agent_async():
     skills_dirs = []
     if Path(settings.skills_dir).exists():
         skills_dirs.append(settings.skills_dir)
+
+    # Build subagent dicts with per-agent model overrides
+    file_agent  = {**FILE_AGENT,  "model": haiku_model}
+    shell_agent = {**SHELL_AGENT, "model": haiku_model}
+    web_agent   = {**WEB_AGENT,   "model": haiku_model}
+    code_agent  = {**CODE_AGENT,  "model": model}   # Sonnet — needs reasoning
 
     _agent = create_deep_agent(
         model=model,
@@ -76,7 +89,7 @@ async def _build_agent_async():
             "Follow the guidelines in AGENTS.md. "
             "Always show your reasoning before delegating to a subagent."
         ),
-        subagents=[FILE_AGENT, SHELL_AGENT, WEB_AGENT, CODE_AGENT],
+        subagents=[file_agent, shell_agent, web_agent, code_agent],
         memory=memory_files if memory_files else None,
         skills=skills_dirs if skills_dirs else None,
         interrupt_on=BASE_INTERRUPT_ON,
